@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Drag and drop lab</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="2.css">
+
+
+       <script>
+        window.addEventListener('load', doitfirst);
+        function doitfirst() {
+            lower = document.getElementById('lower');
+            lower.addEventListener('dragover', overdrag);
+            lower.addEventListener('dragenter', enterdrag);
+
+            upper = document.getElementById('upper');
+            upper.addEventListener('dragleave', leavedrag);
+            lower.addEventListener('drop', dropped);
+
+            var list = document.querySelectorAll('.pic');
+            for (var i = 0; i < 8; i++) {
+                list[i].addEventListener('dragstart', startdrag);
+                list[i].addEventListener('dragend', enddrag);
+                
+            }
+        }
+        function startdrag(e) {
+            e.dataTransfer.setData('myimg', e.srcElement.outerHTML);
+        }
+        function enddrag(e) {
+            e.preventDefault();
+            e.target.style.display = 'none';
+
+
+                
+        }
+        function dropped(e) {
+            e.preventDefault();
+            lower.innerHTML += e.dataTransfer.getData('myimg');
+             if(lower.children.length==8) {
+                    upper.innerText = "Empty";
+                }
+        }
+        function leavedrag(e) {
+            e.preventDefault();
+            upper.style.border = '2px dashed CornflowerBlue ';
+        }
+        function enterdrag(e) {
+            e.preventDefault();
+            lower.style.backgroundColor = 'lightyellow';
+
+        }
+        function overdrag(e) {
+            e.preventDefault();
+
+
+        }
+    </script>
+</head>
+<body>
+<div id="all">
+<div id="upper">
+<img class="pic" src="1.jpg">
+<img class="pic" src="2.jpg">
+<img class="pic" src="3.jpg">
+<img class="pic" src="4.jpg">
+<img class="pic" src="5.jpg">
+<img class="pic" src="6.jpg">
+<img class="pic" src="7.jpg">
+<img class="pic" src="8.jpg">
+
+</div>
+	
+<div id="lower">
+
+</div>
+</div>
+	
+
+</body>	
+</html>
